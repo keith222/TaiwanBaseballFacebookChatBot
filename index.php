@@ -71,6 +71,33 @@ $url = 'https://graph.facebook.com/v2.9/me/messages?access_token='.$access_token
 
 $ch = curl_init($url);
 
+
+if (strlen($message_image) > 0){
+    $jsonData = '{
+        "recipient":{
+            "id":"'.$sender.'"
+        },
+        "message":{
+            "attachment": {
+                "type": "image",
+                "payload": {
+                    "url": "'.$message_image.'",
+                    "is_reusable": true
+                }
+            }
+        }
+    }';
+    
+    $jsonDataEncoded = $jsonData;
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    if(!empty($input['entry'][0]['messaging'][0]['message'])){
+        $result = curl_exec($ch);
+    }
+}
+
+
 $jsonData = '{
     "recipient":{
         "id":"'.$sender.'"
