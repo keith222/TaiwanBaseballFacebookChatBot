@@ -70,7 +70,7 @@ $url = 'https://graph.facebook.com/v2.9/me/messages?access_token='.$access_token
 $ch = curl_init($url);
 
 // If there is an image, attach
-$jsonData = ''
+$jsonData = '';
 if (strlen($message_image) > 0){
     $jsonData = '{
         "recipient":{
