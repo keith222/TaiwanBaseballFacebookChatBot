@@ -22,6 +22,7 @@ $message_to_reply = '';
 // attached image
 $message_image = '';
 
+$message = "選手-陳禹勳";
 if(preg_match('[戰績|上半季|下半季]', strtolower($message))) {
     $season = 0;
     
@@ -52,12 +53,14 @@ if(preg_match('[戰績|上半季|下半季]', strtolower($message))) {
     $message_to_reply = '嗨，我是 Taiwan Baseball App Facebook 聊天小精靈。你可以在這邊問我關於戰績、球員、賽事相關的情報唷。輸入 help 以取得資訊。';
 }else if(preg_match('[選手-]', strtolower($message))){
     $param = explode('-',$message);
-    $message_to_reply = get_player_data($param[1]);
+    $player = get_player_data($param[1]);
+    $message_to_reply = $player[0];
+    $message_image = $player[1];
     
 }else if(preg_match('[help]', strtolower($message))){
     $message_to_reply = '可輸入問題： \\n';
     $message_to_reply .= '戰績：上半季、下半季、全年戰績、球隊名稱\\n';
-    $message_to_reply .= '球員：球員姓名 \\n';
+    $message_to_reply .= '球員：選手-球員姓名 \\n';
     $message_to_reply .= '賽事：今天、明天、昨天、日期';
 }else{
     $message_to_reply = '不好意思，暫時無法回答到你的問題。可以再多給我一點提示嗎？或是等等小編來回答你。';
@@ -210,7 +213,7 @@ function get_player_data($name){
     $classname = 'player_info_pic';
     $nodes = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $classname ')]");
     $message_image = $nodes->item(0)->getElementsByTagName('img')->item(0)->getAttribute('src');
-    
+
     // get player's info
     $classname = 'player_info_name';
     $nodes = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $classname ')]");
@@ -251,7 +254,7 @@ function get_player_data($name){
     $data_message .= '================\\n';
     $data_message .= $player_url;
     
-    return $data_message;
+    return [$data_message,$message_image];
     
 }
 ?>
