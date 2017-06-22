@@ -88,28 +88,34 @@ if (strlen($message_image) > 0){
             }
         }
     }';
-}else{
-    $jsonData = '{
-        "recipient":{
-            "id":"'.$sender.'"
-        },
-        "message":{
-            "text":"'.$message_to_reply.'"
-        }
-    }';
+    
+    post_data($jsonData);
 }
 
+$jsonData = '{
+    "recipient":{
+        "id":"'.$sender.'"
+    },
+    "message":{
+        "text":"'.$message_to_reply.'"
+    }
+}';
+
+post_data($jsonData);
 
 echo $jsonData;
 
-$jsonDataEncoded = $jsonData;
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-if(!empty($input['entry'][0]['messaging'][0]['message'])){
-    $result = curl_exec($ch);
-}
 
+
+function post_data($json){
+    
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    if(!empty($input['entry'][0]['messaging'][0]['message'])){
+        $result = curl_exec($ch);
+    }
+}
 
 // functions for reply
 
