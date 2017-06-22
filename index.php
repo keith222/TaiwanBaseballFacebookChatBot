@@ -22,7 +22,6 @@ $message_to_reply = '';
 // attached image
 $message_image = '';
 
-$message = "選手-陳禹勳";
 if(preg_match('[戰績|上半季|下半季]', strtolower($message))) {
     $season = 0;
     
