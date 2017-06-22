@@ -51,7 +51,7 @@ if(preg_match('[戰績|上半季|下半季]', strtolower($message))) {
 }else if(preg_match('[hi|Hi|hello|嗨]', strtolower($message))){
     $message_to_reply = '嗨，我是 Taiwan Baseball App Facebook 聊天小精靈。你可以在這邊問我關於戰績、球員、賽事相關的情報唷。輸入 help 以取得資訊。';
 }else if(preg_match('[選手-]', strtolower($message))){
-    $param = explode("-",$message)
+    $param = explode('-',$message);
     $message_to_reply = get_player_data($param[1]);
     
 }else if(preg_match('[help]', strtolower($message))){
