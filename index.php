@@ -19,7 +19,7 @@ $input = json_decode(file_get_contents('php://input'), true);
 $sender = $input['entry'][0]['messaging'][0]['sender']['id'];
 $message = $input['entry'][0]['messaging'][0]['message']['text'];
 $message_to_reply = '';
-// attatched image
+// attached image
 $message_image = '';
 
 if(preg_match('[戰績|上半季|下半季]', strtolower($message))) {
@@ -69,14 +69,35 @@ $url = 'https://graph.facebook.com/v2.9/me/messages?access_token='.$access_token
 
 $ch = curl_init($url);
 
-$jsonData = '{
-    "recipient":{
-        "id":"'.$sender.'"
-    },
-    "message":{
-        "text":"'.$message_to_reply.'"
-    }
-}';
+// If there is an image, attach
+$jsonData = ''
+if (strlen($message_image) > 0){
+    $jsonData = '{
+        "recipient":{
+            "id":"'.$sender.'"
+        },
+        "message":{
+            "text":"'.$message_to_reply.'",
+            "attachment": {
+                "type": "image",
+                    "payload": {
+                        "url": "'.$message_image.'",
+                        "is_reusable": true
+                    }
+            }
+        }
+    }';
+}else{
+    $jsonData = '{
+        "recipient":{
+            "id":"'.$sender.'"
+        },
+        "message":{
+            "text":"'.$message_to_reply.'"
+        }
+    }';
+}
+
 
 echo $jsonData;
 
@@ -218,7 +239,7 @@ function get_player_data($name){
         if ($key == 0) continue;
         if ($list_year == $year){
             $player_data = $value->nodeValue;
-            $player_data = preg_replace('/\s+/', ' ',$player_data);
+            $player_data = preg_replace('/\s+/', ' | ',$player_data);
         }
     }
     
@@ -228,6 +249,7 @@ function get_player_data($name){
     $data_message .= '================\\n';
     $data_message .= $player_data.'\\n';
     $data_message .= '================\\n';
+    $data_message .= $player_url;
     
     return $data_message;
     
