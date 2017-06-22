@@ -256,7 +256,7 @@ function get_player_data($name){
     $data_message .= '================\\n';
     $data_message .= $player_data.'\\n';
     $data_message .= '================\\n';
-    $data_message .= $player_url;
+    $data_message .= '\\n資料來源：\\n'.$player_url;
     
     return [$data_message,$message_image];
     
