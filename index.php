@@ -79,7 +79,6 @@ if (strlen($message_image) > 0){
             "id":"'.$sender.'"
         },
         "message":{
-            "text":"'.$message_to_reply.'",
             "attachment": {
                 "type": "image",
                     "payload": {
