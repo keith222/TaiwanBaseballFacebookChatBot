@@ -97,25 +97,29 @@ $jsonData = '{
         "id":"'.$sender.'"
     },
     "message":{
-        "text":"'.$message_to_reply.'"
+        "text":"'.$message_to_reply.'",
+        "attachment": {
+            "type": "image",
+            "payload": {
+                "url": "'.$message_image.'",
+                "is_reusable": true
+            }
+        }
     }
 }';
 
-post_data($jsonData);
+
 
 echo $jsonData;
 
-
-
-function post_data($json){
-    $jsonDataEncoded = $json;
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-    if(!empty($input['entry'][0]['messaging'][0]['message'])){
-        $result = curl_exec($ch);
-    }
+$jsonDataEncoded = $jsonData;
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+if(!empty($input['entry'][0]['messaging'][0]['message'])){
+    $result = curl_exec($ch);
 }
+
 
 // functions for reply
 
