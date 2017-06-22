@@ -239,7 +239,7 @@ function get_player_data($name){
     $classname = 'std_tb';
     $nodes = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' $classname ')]");
     $title = $nodes->item(0)->getElementsByTagName('tr')->item(0)->nodeValue;
-    $title = preg_replace('/\s+/', ' ',$title);
+    $title = preg_replace('/\s+/', ' | ',$title);
     
     $content = $nodes->item(0)->getElementsByTagName('tr');
     $year = date('Y');
