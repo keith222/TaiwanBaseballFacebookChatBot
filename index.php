@@ -61,6 +61,21 @@ if(preg_match('[戰績|上半季|下半季]', strtolower($message))) {
     $message_to_reply .= '戰績：上半季、下半季、全年戰績、球隊名稱\\n';
     $message_to_reply .= '球員：選手-球員姓名 \\n';
     $message_to_reply .= '賽事：今天、明天、昨天、日期';
+}else if(preg_match('[今天|昨天|明天]', strtolower($message))){
+    $year = date("Y");
+    $month = date("n");
+    
+    if(preg_match('[今天]', strtolower($message))){
+        $day = date("d");
+    }else if(preg_match('[昨天]', strtolower($message))){
+        $day = date("d", strtotime("-1 days"));
+    }else if(preg_match('[明天]', strtolower($message))){
+        $day = date("d", strtotime("+1 days"));   
+    }
+    
+    $date = $year."/".$month."/".$day;
+    $message = get_game_info($date);
+    
 }else{
     $message_to_reply = '不好意思，暫時無法回答到你的問題。可以再多給我一點提示嗎？或是等等小編來回答你。';
 }
@@ -71,7 +86,7 @@ $url = 'https://graph.facebook.com/v2.9/me/messages?access_token='.$access_token
 
 $ch = curl_init($url);
 
-
+// send image
 if (strlen($message_image) > 0){
     $jsonData = '{
         "recipient":{
@@ -264,4 +279,46 @@ function get_player_data($name){
     return [$data_message,$message_image];
     
 }
+
+function get_game_inof($date){
+    $firebase = "https://cpbl-fans.firebaseio.com/".$date.".json";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL,$firebase);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+
+
+    $data = curl_exec($ch);
+    $data = (array)json_decode($data,true);
+    curl_close($ch);
+    
+    foreach($temp as $value){
+        $game_message = "日期：".$value["date"]."\n";
+        $game_message .= "賽事編號：".$value["game"]."\n";
+        $game_message .= "隊伍：".get_team_name($value["guest"])." VS ".get_team_name($value["home"])."\n";
+        $game_message .= "分數：".$value["g_score"]." : ".$value["h_score"]."\n";
+        $game_message = "場地：".$value["place"]."\n";
+        $game_message = "=================\n";    
+    }
+    
+    return $game_message;
+}
+
+function get_team_name($team){
+    switch ($team){
+        case 1:
+            $name = "中信兄弟";
+            break;
+        case 2:
+            $name = "統一7-ELEVEn獅";
+            break;
+        case 3:
+            $name = "Lamigo桃猿";
+            break;
+        case 4:
+            $name = "富邦悍將";
+            break;
+    }
+    return $name;
+}
+
 ?>
