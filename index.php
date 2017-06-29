@@ -21,7 +21,7 @@ $message = $input['entry'][0]['messaging'][0]['message']['text'];
 $message_to_reply = '';
 // attached image
 $message_image = '';
-$message = "今天";
+
 if(preg_match('[戰績|上半季|下半季]', strtolower($message))) {
     $season = 0;
     
@@ -296,7 +296,7 @@ function get_game_info($date){
         $game_message .= "日期：".$value["date"]."\\n";
         $game_message .= "賽事編號：".$value["game"]."\\n";
         $game_message .= "隊伍：".get_team_name($value["guest"])." VS ".get_team_name($value["home"])."\\n";
-        $game_message .= "分數：".$value["g_score"]." : ".$value["h_score"]."\\n";
+        $game_message .= "分數：".$value["g_score"]." ： ".$value["h_score"]."\\n";
         $game_message .= "場地：".$value["place"]."\\n";
         $game_message .= "=================\\n";    
     }
