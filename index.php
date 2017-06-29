@@ -301,7 +301,7 @@ function get_game_info($date){
         $game_message .= "=================\n";    
     }
     
-    return "日期：".$value["date"]."\n";
+    return $game_message;
 }
 
 function get_team_name($team){
