@@ -21,7 +21,7 @@ $message = $input['entry'][0]['messaging'][0]['message']['text'];
 $message_to_reply = '';
 // attached image
 $message_image = '';
-
+$message = "今天";
 if(preg_match('[戰績|上半季|下半季]', strtolower($message))) {
     $season = 0;
     
