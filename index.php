@@ -74,7 +74,7 @@ if(preg_match('[戰績|上半季|下半季]', strtolower($message))) {
     }
     
     $date = $year."/".$month."/".$day;
-    $message = get_game_info($date);
+    $message_to_reply = get_game_info($date);
     
 }else{
     $message_to_reply = '不好意思，暫時無法回答到你的問題。可以再多給我一點提示嗎？或是等等小編來回答你。';
