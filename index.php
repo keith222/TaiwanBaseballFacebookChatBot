@@ -293,12 +293,12 @@ function get_game_info($date){
     
     $game_message = "";
     foreach($data as $value){
-        $game_message .= "日期：".$value["date"]."\n";
-        $game_message .= "賽事編號：".$value["game"]."\n";
-        $game_message .= "隊伍：".get_team_name($value["guest"])." VS ".get_team_name($value["home"])."\n";
-        $game_message .= "分數：".$value["g_score"]." : ".$value["h_score"]."\n";
-        $game_message .= "場地：".$value["place"]."\n";
-        $game_message .= "=================\n";    
+        $game_message .= "日期：".$value["date"]."\\n";
+        $game_message .= "賽事編號：".$value["game"]."\\n";
+        $game_message .= "隊伍：".get_team_name($value["guest"])." VS ".get_team_name($value["home"])."\\n";
+        $game_message .= "分數：".$value["g_score"]." : ".$value["h_score"]."\\n";
+        $game_message .= "場地：".$value["place"]."\\n";
+        $game_message .= "=================\\n";    
     }
     
     return $game_message;
