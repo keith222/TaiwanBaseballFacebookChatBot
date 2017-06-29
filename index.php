@@ -280,7 +280,7 @@ function get_player_data($name){
     
 }
 
-function get_game_inof($date){
+function get_game_info($date){
     $firebase = "https://cpbl-fans.firebaseio.com/".$date.".json";
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL,$firebase);
@@ -291,13 +291,14 @@ function get_game_inof($date){
     $data = (array)json_decode($data,true);
     curl_close($ch);
     
-    foreach($temp as $value){
-        $game_message = "日期：".$value["date"]."\n";
+    $game_message = "";
+    foreach($data as $value){
+        $game_message .= "日期：".$value["date"]."\n";
         $game_message .= "賽事編號：".$value["game"]."\n";
         $game_message .= "隊伍：".get_team_name($value["guest"])." VS ".get_team_name($value["home"])."\n";
         $game_message .= "分數：".$value["g_score"]." : ".$value["h_score"]."\n";
-        $game_message = "場地：".$value["place"]."\n";
-        $game_message = "=================\n";    
+        $game_message .= "場地：".$value["place"]."\n";
+        $game_message .= "=================\n";    
     }
     
     return $game_message;
