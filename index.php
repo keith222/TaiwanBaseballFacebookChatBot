@@ -76,6 +76,10 @@ if(preg_match('[戰績|上半季|下半季]', strtolower($message))) {
     $date = $year."/".$month."/".$day;
     $message_to_reply = get_game_info($date);
     
+}else if (preg_match('[日期-]', strtolower($message))){
+    $param = explode('-', $message);
+    $message_to_reply = get_game_info($param[1]);
+}
 }else{
     $message_to_reply = '不好意思，暫時無法回答到你的問題。可以再多給我一點提示嗎？或是等等小編來回答你。';
 }
@@ -298,6 +302,7 @@ function get_game_info($date){
         $game_message .= "隊伍：".get_team_name($value["guest"])." VS ".get_team_name($value["home"])."\\n";
         $game_message .= "分數：".$value["g_score"]." ： ".$value["h_score"]."\\n";
         $game_message .= "場地：".$value["place"]."\\n";
+        $game_message .= "賽事細節： http://www.cpbl.com.tw/games/box.html?&game_type=01&game_id=".$value["game"]."&game_date=".$value["date"]."&pbyear=".date("Y")."\\n";
         $game_message .= "=================\\n";    
     }
     
