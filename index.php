@@ -18,6 +18,7 @@ class Index{
     private $message;
     private $message_image;
     private $message_to_reply;
+    private $input;
     
     public function __construct(){
         $hub_verify_token = null;
@@ -29,10 +30,10 @@ class Index{
         if ($hub_verify_token === self::$verify_token) {
             echo $challenge;
         }
-        $input = json_decode(file_get_contents('php://input'), true);
+        $this->input = json_decode(file_get_contents('php://input'), true);
         
-        $this->sender = $input['entry'][0]['messaging'][0]['sender']['id'];
-        $this->message = "hi";//$input['entry'][0]['messaging'][0]['message']['text'];
+        $this->sender = $this->input['entry'][0]['messaging'][0]['sender']['id'];
+        $this->message = "hi";//$this->input['entry'][0]['messaging'][0]['message']['text'];
     }
     
     public function handle_message(){
@@ -145,7 +146,7 @@ class Index{
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            if(!empty($input['entry'][0]['messaging'][0]['message'])){
+            if(!empty($this->input['entry'][0]['messaging'][0]['message'])){
                 $result = curl_exec($ch);
             }
         }
@@ -165,7 +166,7 @@ class Index{
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        if(!empty($input['entry'][0]['messaging'][0]['message'])){
+        if(!empty($this->input['entry'][0]['messaging'][0]['message'])){
             $result = curl_exec($ch);
         }
     }
