@@ -1,14 +1,14 @@
 <?php
 class Game{
     
-    public $date;
+    public $_date;
     
     public function __construct($date){
-        $this->$date = $date;
+        $this->_date = $date;
     }
     
     public function get_game_info(){
-        $firebase = "https://cpbl-fans.firebaseio.com/".$this->$date.".json";
+        $firebase = "https://cpbl-fans.firebaseio.com/".$this->_date.".json";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$firebase);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
@@ -37,7 +37,8 @@ class Game{
             case "1":
                 $name = "中信兄弟";
                 break;
-            case "2","2-1":
+            case "2":
+            case "2-1":
                 $name = "統一7-ELEVEn獅";
                 break;
             case "3":

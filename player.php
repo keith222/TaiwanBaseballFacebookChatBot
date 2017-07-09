@@ -4,14 +4,14 @@ class Player{
     public $player_name;
     
     public function __construct($name){
-        $this->$player_name = $name;
+        $this->player_name = $name;
     }
     
     public function get_player_data(){
         $data_message = '';
 
         // get html data from cpbl
-        $cpbl_url = 'http://www.cpbl.com.tw/players.html?keyword='.$this->$player_name;
+        $cpbl_url = 'http://www.cpbl.com.tw/players.html?keyword='.$this->player_name;
         $doc = new DOMDocument();
         $doc->loadHTMLFile($cpbl_url);
 

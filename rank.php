@@ -2,20 +2,22 @@
 class Rank{
     
     private static $default_url = "http://www.cpbl.com.tw/standing/season/";
-    private static $year = date("Y");
+    private $year;
     
     public function __construct(){}
     
     public function get_rank_data($season){
+        this->year = date("Y");
+        
         // get html data from cpbl
-        $cpbl_url = $default_url.$this->$year.'.html?season='.$season;
+        $cpbl_url = self::$default_url.$this->year.'.html?season='.$season;
 
         return $this->get_rank_from_url($cpbl_url,null);
     }
 
     public function get_team_rank_data($team){
         // get html data from cpbl
-        $cpbl_url = $default_url.$this->$year.'.html';
+        $cpbl_url = self::$default_url.$this->year.'.html';
 
         return $this->get_rank_from_url($cpbl_url,$team);
     }
