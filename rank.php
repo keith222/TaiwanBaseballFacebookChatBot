@@ -7,7 +7,7 @@ class Rank{
     public function __construct(){}
     
     public function get_rank_data($season){
-        this->year = date("Y");
+        $this->year = date("Y");
         
         // get html data from cpbl
         $cpbl_url = self::$default_url.$this->year.'.html?season='.$season;
