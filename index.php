@@ -28,9 +28,9 @@ class Index{
             echo $challenge;
         }
         $input = json_decode(file_get_contents('php://input'), true);
-
+        
         $this->sender = $input['entry'][0]['messaging'][0]['sender']['id'];
-        $this->message = $input['entry'][0]['messaging'][0]['message']['text'];
+        $this->message = "hi";//$input['entry'][0]['messaging'][0]['message']['text'];
     }
     
     public function handle_message(){
@@ -158,6 +158,7 @@ class Index{
             }
         }';
 
+        echo $jsonData;
         $jsonDataEncoded = $jsonData;
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
