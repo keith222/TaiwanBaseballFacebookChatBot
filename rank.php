@@ -57,7 +57,7 @@ class Rank{
             $rank_message = "暫無資料";
         }
 
-        $rank_message .= '\\n資料來源：\\n'.$cpbl_url;
+        $rank_message .= '\\n資料來源：\\n'.$url;
         
         return $rank_message;
     }
