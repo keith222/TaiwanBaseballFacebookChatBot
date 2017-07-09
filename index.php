@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
+//error_reporting(E_ALL);
+//ini_set("display_errors", 1);
 //header("Content-Type:text/html; charset=utf-8");
 require_once("rank.php");
 require_once("game.php");
@@ -11,6 +11,7 @@ $index->handle_message();
 
 class Index{
     
+    //tokens
     private static $access_token = "EAADXvVcaDQMBACpjZCMGmf6vOVoZCTHxhvI72WxXhNfMpbEwTYdDte1PYlrXq9iELs7yFA7ww4GLIQZCeW7gZA6VwKcf6RFyCDFvgpZAVZCHxL2yWPXhac2o9kZBfFxVr7b6i5XWbqeoxgKJFmIbHtDgDprvcvW8bt4JYHnH2jvpgZDZD";
     private static $verify_token = "taiwan-baseball-app-chat-bot";
     
@@ -33,7 +34,7 @@ class Index{
         $this->input = json_decode(file_get_contents('php://input'), true);
         
         $this->sender = $this->input['entry'][0]['messaging'][0]['sender']['id'];
-        $this->message = "hi";//$this->input['entry'][0]['messaging'][0]['message']['text'];
+        $this->message = $this->input['entry'][0]['messaging'][0]['message']['text'];
     }
     
     public function handle_message(){
@@ -161,7 +162,7 @@ class Index{
             }
         }';
 
-        echo $jsonData;
+        //echo $jsonData;
         $jsonDataEncoded = $jsonData;
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
