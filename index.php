@@ -124,7 +124,7 @@ class Index(){
         $ch = curl_init($url);
 
         //send image
-        if (strlen($message_image) > 0){
+        if (!isset($this->$message_image) && !empty($this->$message_image)){
             $jsonData = '{
                 "recipient":{
                     "id":"'.$this->$sender.'"
