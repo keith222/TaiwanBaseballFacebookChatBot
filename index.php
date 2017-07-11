@@ -79,14 +79,6 @@ class Index{
             $this->message_image = $player_info[1];
             $player = null;
 
-        }else if(preg_match('[help]', strtolower($this->message))){
-            $question = '可輸入的問題： \\n';
-            $question .= '戰績：上半季、下半季、全年戰績、球隊名稱\\n';
-            $question .= '球員：選手-球員姓名 \\n';
-            $question .= '賽事：今天、明天、昨天、年-月-日（ex. 2017/7/1）';
-            
-            $this->message_to_reply = $question;
-            
         }else if(preg_match('[今|昨|明]', strtolower($this->message))){
             $year = date("Y");
             $month = date("n");
@@ -110,6 +102,14 @@ class Index{
             $this->message_to_reply = $game->get_game_info();
             $game = null;
         
+        }else if(preg_match('[help]', strtolower($this->message))){
+            $question = '可輸入的問題： \\n';
+            $question .= '戰績：上半季、下半季、全年戰績、球隊名稱\\n';
+            $question .= '球員：選手-球員姓名 \\n';
+            $question .= '賽事：今天、明天、昨天、年-月-日（ex. 2017/7/1）';
+            
+            $this->message_to_reply = $question;
+            
         }else if(preg_match('[hi|hello|嗨]', strtolower($this->message))){
             $this->message_to_reply = '嗨，我是 Taiwan Baseball App Facebook 聊天小精靈。你可以在這邊問我關於戰績、球員、賽事相關的情報唷。輸入 help 以取得資訊。';
             
@@ -127,7 +127,7 @@ class Index{
         $ch = curl_init($url);
 
         //send image
-        if (!isset($this->message_image) && !empty($this->message_image)){
+        if (isset($this->message_image) && !empty($this->message_image)){
             $jsonData = '{
                 "recipient":{
                     "id":"'.$this->sender.'"
