@@ -105,7 +105,7 @@ class Index{
             $this->message_to_reply = $game->get_game_info();
             $game = null;
 
-        }else if (preg_match('/\d{4}\/\d{2}\/\d{2}/', strtolower($this->message), $result)){
+        }else if (preg_match('/\d{4}\/\d{1,2}\/\d{2}/', strtolower($this->message), $result)){
             $game = new Game($result[0]);
             $this->message_to_reply = $game->get_game_info();
             $game = null;

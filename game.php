@@ -13,11 +13,13 @@ class Game{
         curl_setopt($ch, CURLOPT_URL,$firebase);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 
-
         $data = curl_exec($ch);
         $data = (array)json_decode($data,true);
         curl_close($ch);
 
+        if(empty($data)){
+            return "無比賽資料。";
+        }
         $game_message = "";
         foreach($data as $value){
             $game_message .= "日期：".$value["date"]."\\n";
