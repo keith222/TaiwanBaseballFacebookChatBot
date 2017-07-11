@@ -71,7 +71,7 @@ class Index{
             $rank = null;
             
         }else if(preg_match('[選手-]', strtolower($this->message))){
-            $param = explode('-',$message);
+            $param = explode('-',$this->message);
             
             $player = new Player($param[1]);
             $player_info = $player->get_player_data($param[1]);
