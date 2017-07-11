@@ -83,7 +83,7 @@ class Index{
             $question = '可輸入的問題： \\n';
             $question .= '戰績：上半季、下半季、全年戰績、球隊名稱\\n';
             $question .= '球員：選手-球員姓名 \\n';
-            $question .= '賽事：今天、明天、昨天、年-月-日（ex. 2017/03/20）';
+            $question .= '賽事：今天、明天、昨天、年-月-日（ex. 2017/7/1）';
             
             $this->message_to_reply = $question;
             
@@ -105,7 +105,7 @@ class Index{
             $this->message_to_reply = $game->get_game_info();
             $game = null;
 
-        }else if (preg_match('/\d{4}\/\d{1,2}\/\d{2}/', strtolower($this->message), $result)){
+        }else if (preg_match('/\d{4}\/\d{1,2}\/\d{1,2}/', strtolower($this->message), $result)){
             $game = new Game($result[0]);
             $this->message_to_reply = $game->get_game_info();
             $game = null;
