@@ -23,7 +23,7 @@ class Game{
         $game_message = "";
         foreach($data as $value){
             $game_message .= "日期：".$value["date"]."\\n";
-            $game_message .= "賽事編號：".$value["game"]."\\n";
+            $game_message .= "賽事編號：".$this->gameFormat($value["game"])."\\n";
             $game_message .= "隊伍：".$this->get_team_name($value["guest"])." VS ".$this->get_team_name($value["home"])."\\n";
             $game_message .= "分數：".$value["g_score"]." ： ".$value["h_score"]."\\n";
             $game_message .= "場地：".$value["place"]."\\n";
@@ -32,6 +32,18 @@ class Game{
         }
 
         return $game_message;
+    }
+    
+    private function gameFormat($num){
+        if ($num == 0){
+            $newNum = "All Stars Game";
+        }else if ($num < 0){
+            $newNum = "Taiwan Series Game".$num;
+        }else{
+            $newNum = $num;
+        }
+        
+        return $num;
     }
 
     private function get_team_name($team){
