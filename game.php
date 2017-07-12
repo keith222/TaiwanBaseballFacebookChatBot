@@ -43,7 +43,7 @@ class Game{
             $newNum = $num;
         }
         
-        return $num;
+        return $newNum;
     }
 
     private function get_team_name($team){
