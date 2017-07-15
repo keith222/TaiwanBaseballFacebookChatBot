@@ -40,7 +40,7 @@ class Index{
             if($messagingArray['postback']['payload'] == 'hi'){
                 $this->message = "hi";
             }
-        }else{
+        }else if(isset($messagingArray['message'])){
             $this->message = $messagingArray['message']['text'];   
         }
     }
@@ -175,7 +175,7 @@ class Index{
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        if(!empty($this->input['entry'][0]['messaging'][0]['message'])){
+        if(!empty($this->input['entry'][0]['messaging'][0]['message']) || !empty($this->input['entry'][0]['messaging'][0]['postback'])){
             $result = curl_exec($ch);
         }
     }
