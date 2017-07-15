@@ -175,7 +175,9 @@ class Index{
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        $result = curl_exec($ch);
+        if(!empty($this->input['entry'][0]['messaging'][0]['message'])){
+            $result = curl_exec($ch);
+        }
     }
 }
 
