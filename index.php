@@ -34,7 +34,15 @@ class Index{
         $this->input = json_decode(file_get_contents('php://input'), true);
         
         $this->sender = $this->input['entry'][0]['messaging'][0]['sender']['id'];
-        $this->message = $this->input['entry'][0]['messaging'][0]['message']['text'];
+        
+        $messagingArray = $this->input['entry'][0]['messaging'][0];
+        if(isset($messagingArray['postback'])){
+            if($messagingArray['postback']['payload'] == 'hi'){
+                $this->message = "hi";
+            }
+        }else{
+            $this->message = $messagingArray['message']['text'];   
+        }
     }
     
     public function handle_message(){
