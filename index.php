@@ -119,7 +119,7 @@ class Index{
             $this->message_to_reply = $question;
             
         }else if(preg_match('[hi|hello|嗨]', strtolower($this->message))){
-            $this->message_to_reply = '嗨，我是 Taiwan Baseball App Facebook 聊天小精靈。你可以在這邊問我關於戰績、球員、賽事相關的情報唷。輸入 help 以取得資訊。';
+            $this->message_to_reply = '嗨，我是 Taiwan Baseball App Facebook 聊天小精靈。你可以在這邊問我關於戰績、球員、賽事相關的情報唷。輸入 help 以取得資訊。或是留下訊息讓小編回答。';
             
         }else{
             //$this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或是輸入 help 查詢。或者等等小編來回答你。';
