@@ -4,7 +4,7 @@
 //header("Content-Type:text/html; charset=utf-8");
 require_once("rank.php");
 //require_once("game.php");
-//require_once("player.php");
+require_once("player.php");
 
 $index = new Index();
 $index->handle_message();
@@ -55,32 +55,32 @@ class Index{
             $rank = new Rank();
             $this->message_to_reply = $rank->get_rank_data($season);
             $rank = null;
-        }//else if(preg_match('[象|獅|猿|悍|中信|兄弟|統一|lamigo|富邦]', strtolower($this->message))){
-//            // team rank
-//            $team = '';
-//            if(preg_match('[象|中信|兄弟]', strtolower($message))){
-//                $team = '中信兄弟';
-//            }else if(preg_match('[獅|統一]', strtolower($message))){
-//                $team = '統一7-ELEVEn';
-//            }else if(preg_match('[猿|lamigo]', strtolower($message))){
-//                $team = 'Lamigo';
-//            }else if(preg_match('[悍|富邦]', strtolower($message))){
-//                $team = '富邦';
-//            }
-//            
-//            $rank = new Rank();
-//            $this->message_to_reply = $rank->get_team_rank_data($team);
-//            $rank = null;
-//            
-//        }else if(preg_match('[選手-]', strtolower($this->message))){
-//            $param = explode('-',$this->message);
-//            
-//            $player = new Player($param[1]);
-//            $player_info = $player->get_player_data($param[1]);
-//            $this->message_to_reply = $player_info[0];
-//            $this->message_image = $player_info[1];
-//            $player = null;
-//        }else if(preg_match('[今|昨|明]', strtolower($this->message))){
+        }else if(preg_match('[象|獅|猿|悍|中信|兄弟|統一|lamigo|富邦]', strtolower($this->message))){
+            // team rank
+            $team = '';
+            if(preg_match('[象|中信|兄弟]', strtolower($message))){
+                $team = '中信兄弟';
+            }else if(preg_match('[獅|統一]', strtolower($message))){
+                $team = '統一7-ELEVEn';
+            }else if(preg_match('[猿|lamigo]', strtolower($message))){
+                $team = 'Lamigo';
+            }else if(preg_match('[悍|富邦]', strtolower($message))){
+                $team = '富邦';
+            }
+            
+            $rank = new Rank();
+            $this->message_to_reply = $rank->get_team_rank_data($team);
+            $rank = null;
+            
+        }else if(preg_match('[選手-]', strtolower($this->message))){
+            $param = explode('-',$this->message);
+            
+            $player = new Player($param[1]);
+            $player_info = $player->get_player_data($param[1]);
+            $this->message_to_reply = $player_info[0];
+            $this->message_image = $player_info[1];
+            $player = null;
+        }//else if(preg_match('[今|昨|明]', strtolower($this->message))){
 //            $year = date("Y");
 //            $month = date("n");
 //            if(preg_match('[今]', strtolower($this->message))){
