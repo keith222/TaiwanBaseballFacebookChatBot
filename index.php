@@ -130,7 +130,7 @@ class Index{
 
     private function send_message($message_to_reply){
         //API Url
-        $url = 'https://graph.facebook.com/v2.9/me/messages?access_token='.self::$access_token;
+        $url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.self::$access_token;
 
         $ch = curl_init($url);
 
