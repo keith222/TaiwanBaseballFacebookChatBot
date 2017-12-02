@@ -3,7 +3,7 @@
 //ini_set("display_errors", 1);
 //header("Content-Type:text/html; charset=utf-8");
 require_once("rank.php");
-//require_once("game.php");
+require_once("game.php");
 require_once("player.php");
 
 $index = new Index();
@@ -80,41 +80,40 @@ class Index{
             $this->message_to_reply = $player_info[0];
             $this->message_image = $player_info[1];
             $player = null;
-        }//else if(preg_match('[今|昨|明]', strtolower($this->message))){
-//            $year = date("Y");
-//            $month = date("n");
-//            if(preg_match('[今]', strtolower($this->message))){
-//                $day = date("d");
-//            }else if(preg_match('[昨]', strtolower($this->message))){
-//                $day = date("d", strtotime("-1 days"));
-//            }else if(preg_match('[明]', strtolower($this->message))){
-//                $day = date("d", strtotime("+1 days"));   
-//            }
-//            $date = $year."/".$month."/".$day;
-//            
-//            $game = new Game($date);
-//            $this->message_to_reply = $game->get_game_info();
-//            $game = null;
-//        }else if (preg_match('/\d{4}\/\d{1,2}\/\d{1,2}/', strtolower($this->message), $result)){
-//            $game = new Game($result[0]);
-//            $this->message_to_reply = $game->get_game_info();
-//            $game = null;
-//        
-//        }else if(preg_match('[help]', strtolower($this->message))){
-//            $question = '可輸入的問題： \\n';
-//            $question .= '戰績：上半季、下半季、全年戰績、球隊名稱\\n';
-//            $question .= '球員：選手-球員姓名 \\n';
-//            $question .= '賽事：今天、明天、昨天、年/月/日（ex. 2017/7/1）';
-//            
-//            $this->message_to_reply = $question;
-//            
-//        }else if(preg_match('[hi|hello|嗨]', strtolower($this->message))){
-//            $this->message_to_reply = '嗨，我是 Taiwan Baseball App Facebook 聊天小精靈。你可以在這邊問我關於戰績、球員、賽事相關的情報唷。輸入 help 以取得資訊。或是留下訊息讓小編回答。';
-//            
-//        }else{
-//            //$this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或是輸入 help 查詢。或者等等小編來回答你。';
-//        }
+        }else if(preg_match('[今|昨|明]', strtolower($this->message))){
+            $year = date("Y");
+            $month = date("n");
+            if(preg_match('[今]', strtolower($this->message))){
+                $day = date("d");
+            }else if(preg_match('[昨]', strtolower($this->message))){
+                $day = date("d", strtotime("-1 days"));
+            }else if(preg_match('[明]', strtolower($this->message))){
+                $day = date("d", strtotime("+1 days"));   
+            }
+            $date = $year."/".$month."/".$day;
+            
+            $game = new Game($date);
+            $this->message_to_reply = $game->get_game_info();
+            $game = null;
+        }else if (preg_match('/\d{4}\/\d{1,2}\/\d{1,2}/', strtolower($this->message), $result)){
+            $game = new Game($result[0]);
+            $this->message_to_reply = $game->get_game_info();
+            $game = null;
         
+        }else if(preg_match('[help]', strtolower($this->message))){
+            $question = '可輸入的問題： \\n';
+            $question .= '戰績：上半季、下半季、全年戰績、球隊名稱\\n';
+            $question .= '球員：選手-球員姓名 \\n';
+            $question .= '賽事：今天、明天、昨天、年/月/日（ex. 2017/7/1）';
+            
+            $this->message_to_reply = $question;
+            
+        }else if(preg_match('[hi|hello|嗨]', strtolower($this->message))){
+            $this->message_to_reply = '嗨，我是 Taiwan Baseball App Facebook 聊天小精靈。你可以在這邊問我關於戰績、球員、賽事相關的情報唷。輸入 help 以取得資訊。或是留下訊息讓小編回答。';
+            
+        }else{
+            //$this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或是輸入 help 查詢。或者等等小編來回答你。';
+        }
         
         $this->send_message($this->message_to_reply);
     }
