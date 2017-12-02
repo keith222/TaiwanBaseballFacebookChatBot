@@ -3,7 +3,7 @@
 //ini_set("display_errors", 1);
 //header("Content-Type:text/html; charset=utf-8");
 require_once("rank.php");
-//require_once("game.php");
+require_once("game.php");
 require_once("player.php");
 
 $index = new Index();
@@ -80,26 +80,26 @@ class Index{
             $this->message_to_reply = $player_info[0];
             $this->message_image = $player_info[1];
             $player = null;
-//        }else if(preg_match('[今|昨|明]', strtolower($this->message))){
-//            $year = date("Y");
-//            $month = date("n");
-//            if(preg_match('[今]', strtolower($this->message))){
-//                $day = date("d");
-//            }else if(preg_match('[昨]', strtolower($this->message))){
-//                $day = date("d", strtotime("-1 days"));
-//            }else if(preg_match('[明]', strtolower($this->message))){
-//                $day = date("d", strtotime("+1 days"));   
-//            }
-//            $date = $year."/".$month."/".$day;
-//            
-//            $game = new Game($date);
-//            $this->message_to_reply = $game->get_game_info();
-//            $game = null;
-//        }else if (preg_match('/\d{4}\/\d{1,2}\/\d{1,2}/', strtolower($this->message), $result)){
-//            $game = new Game($result[0]);
-//            $this->message_to_reply = $game->get_game_info();
-//            $game = null;
-//        
+        }else if(preg_match('[今|昨|明]', strtolower($this->message))){
+            $year = date("Y");
+            $month = date("n");
+            if(preg_match('[今]', strtolower($this->message))){
+                $day = date("d");
+            }else if(preg_match('[昨]', strtolower($this->message))){
+                $day = date("d", strtotime("-1 days"));
+            }else if(preg_match('[明]', strtolower($this->message))){
+                $day = date("d", strtotime("+1 days"));   
+            }
+            $date = $year."/".$month."/".$day;
+            
+            $game = new Game($date);
+            $this->message_to_reply = $game->get_game_info();
+            $game = null;
+        }else if (preg_match('/\d{4}\/\d{1,2}\/\d{1,2}/', strtolower($this->message), $result)){
+            $game = new Game($result[0]);
+            $this->message_to_reply = $game->get_game_info();
+            $game = null;
+        
         }else if(preg_match('[help]', strtolower($this->message))){
             $question = '可輸入的問題： \\n';
             $question .= '戰績：上半季、下半季、全年戰績、球隊名稱\\n';

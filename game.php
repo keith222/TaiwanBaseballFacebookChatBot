@@ -39,7 +39,7 @@ class Game{
             $newNum = "All Stars Game";
         }else if ($num < 0 && $num > -10){
             $newNum = "Taiwan Series Game".(-$num);
-        }else if ($num < -10)
+        }else if ($num < -10){
             $newNum = "季後挑戰賽 Game".(-$num%10);
         }else{
             $newNum = $num;
