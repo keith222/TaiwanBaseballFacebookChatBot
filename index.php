@@ -12,7 +12,7 @@ $index->handle_message();
 class Index{
     
     //tokens
-    private static $access_token = "EAADXvVcaDQMBAEjCw2bZBf9wXeGvlEpHuDndxCZBXl7ogBlNZCuh2FZCvNWjnpR2gmPOOt4oFkMW0cKSfCJt2yPebT4TZA8JZBl4Y1PUiKHAlonxvZAyZCx2ccNEdnj09ucoKNRA02B7tW4iz4KzKkPe39W2fVNo4r4Nzisyq3ucnQZDZD";
+    private static $access_token = "EAADXvVcaDQMBAKiffb7yge54KQWKKH4IdZAW62MEBz90WJmzxofgIoqQBdZBa0VoaTm8vL5gsHXoZCtyNUfu3xH5JaZC3HghBOA7O7wxmgLDoSJCZCvYIsFtGN32zg4zouF1Ml4ZCVczOmcdUtXWBdMXGkHA6genYEfeKTSGZBZAhgZDZD";
     private static $verify_token = "taiwan-baseball-app-chat-bot";
     
     private $sender;
