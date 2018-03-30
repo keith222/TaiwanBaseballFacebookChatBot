@@ -10,7 +10,7 @@ $index = new Index();
 class Index{
     
     //tokens
-    private static $access_token = "EAADXvVcaDQMBAKiffb7yge54KQWKKH4IdZAW62MEBz90WJmzxofgIoqQBdZBa0VoaTm8vL5gsHXoZCtyNUfu3xH5JaZC3HghBOA7O7wxmgLDoSJCZCvYIsFtGN32zg4zouF1Ml4ZCVczOmcdUtXWBdMXGkHA6genYEfeKTSGZBZAhgZDZD";
+    private static $access_token = "EAADXvVcaDQMBAEtXD9JAm5p99h1KRMOSILAYSNCYkivgCAxaaKk7Bc9wgzPtuWWUPISA6MSSMVZAaZAJfWsSLynMqiqkOkI3l6m68d1zJ9Ur18kdhgAXVLs69zojNPw0XZCiZBEWOGjPiv6wqZAXv43C0KVJ6W7xUOZB6guZAD1zgZDZD";
     private static $verify_token = "taiwan-baseball-app-chat-bot";
     
     private $sender;
