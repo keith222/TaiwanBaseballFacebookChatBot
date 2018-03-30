@@ -2,6 +2,8 @@
 //error_reporting(E_ALL);
 //ini_set("display_errors", 1);
 //header("Content-Type:text/html; charset=utf-8");
+date_default_timezone_set("Asia/Taipei");
+
 require_once("rank.php");
 require_once("game.php");
 require_once("player.php");
@@ -10,7 +12,7 @@ $index = new Index();
 class Index{
     
     //tokens
-    private static $access_token = "EAADXvVcaDQMBAEtXD9JAm5p99h1KRMOSILAYSNCYkivgCAxaaKk7Bc9wgzPtuWWUPISA6MSSMVZAaZAJfWsSLynMqiqkOkI3l6m68d1zJ9Ur18kdhgAXVLs69zojNPw0XZCiZBEWOGjPiv6wqZAXv43C0KVJ6W7xUOZB6guZAD1zgZDZD";
+    private static $access_token = "EAADXvVcaDQMBAKiffb7yge54KQWKKH4IdZAW62MEBz90WJmzxofgIoqQBdZBa0VoaTm8vL5gsHXoZCtyNUfu3xH5JaZC3HghBOA7O7wxmgLDoSJCZCvYIsFtGN32zg4zouF1Ml4ZCVczOmcdUtXWBdMXGkHA6genYEfeKTSGZBZAhgZDZD";
     private static $verify_token = "taiwan-baseball-app-chat-bot";
     
     private $sender;
@@ -40,15 +42,12 @@ class Index{
             $this->payload = $messagingArray['postback']['payload'];
             
             if($this->payload == 'cpblbot'){
-                $this->message = 'cpblbot';
+                $this->message = '嗨，我是 Taiwan Baseball App Facebook 聊天小精靈。你可以在這邊問我關於戰績、球員、賽事相關的情報或是詢問關於 App 的問題唷。';
                 $this->handle_message();
                 
             }else if($this->payload == 'rank'){
                 $this->message = '請點選欲查閱的戰績排名表。';
                 $this->send_rank_button_message($this->message);
-                
-            }else if($this->payload == 'team-rank'){
-                $this->message = '請點選欲查閱的球隊戰績排名表。';
                 $this->send_team_buttons();
                 
             }else if($this->payload == 'player'){
@@ -57,10 +56,17 @@ class Index{
                 
             }else if($this->payload == 'game'){
                 $this->message = '請選擇欲查詢的比賽時間。';
-                $this->send_game_buttons($this->message);
+                $this->send_game_button_message($this->message);
                 
             }else if($this->payload == 'game-custom'){
                 $this->message = '請輸入欲查詢日期。格式：年/月/日。';
+                $this->handle_message();
+                
+            }else if($this->payload == 'today' || $this->payload == 'tomorrow'){
+                $this->message = $this->payload;
+                $this->handle_message();
+            }else if($this->payload == 'all' || $this->payload == 'tophalf' || $this->payload == 'downhalf'){
+                $this->message = $this->payload;
                 $this->handle_message();
             }
             
@@ -75,10 +81,12 @@ class Index{
     
     public function handle_message(){
         if(!empty($this->payload)){
-            $this->send_message($this->message);
-            $this->isEnd = ($this->payload == 'cpblbot');
-            
-            return;
+            if($this->payload == 'cpblbot'){
+                $this->send_message($this->message);
+                $this->isEnd = true;
+
+                return;
+            }
         }
         
         if(preg_match('[all|tophalf|downhalf]', strtolower($this->message))) {
@@ -97,13 +105,13 @@ class Index{
         }else if(preg_match('[中信兄弟|統一7-ELEVEn獅|Lamigo桃猿|富邦悍將]', strtolower($this->message))){
             // team rank
             $team = '';
-            if(preg_match('[中信兄弟]', strtolower($message))){
+            if(preg_match('[中信兄弟]', strtolower($this->message))){
                 $team = '中信兄弟';
-            }else if(preg_match('[統一7-ELEVEn獅]', strtolower($message))){
+            }else if(preg_match('[統一7-ELEVEn獅]', strtolower($this->message))){
                 $team = '統一7-ELEVEn';
-            }else if(preg_match('[Lamigo桃猿]', strtolower($message))){
+            }else if(preg_match('[Lamigo桃猿]', strtolower($this->message))){
                 $team = 'Lamigo';
-            }else if(preg_match('[富邦悍將]', strtolower($message))){
+            }else if(preg_match('[富邦悍將]', strtolower($this->message))){
                 $team = '富邦';
             }
             
@@ -114,18 +122,20 @@ class Index{
             
         }else if(preg_match('[選手-]', strtolower($this->message))){
             $param = explode('-',$this->message);
-            
-            $player = new Player($param[1]);
-            $player_info = $player->get_player_data($param[1]);
-            $this->message_to_reply = $player_info[0];
-            $this->message_image = $player_info[1];
-            $this->isEnd = true;
-            $player = null;
+            if($param[1] != "姓名。") {
+                $player = new Player($param[1]);
+                $player_info = $player->get_player_data($param[1]);
+                $this->message_to_reply = $player_info[0];
+                $this->message_image = $player_info[1];
+                $this->isEnd = true;
+                $player = null;
+            }else{
+                $this->message_to_reply = $this->message;
+            }
             
         }else if(preg_match('[today|yesterday|tomorrow]', strtolower($this->message))){
             $year = date("Y");
             $month = date("n");
-            
             if(preg_match('[today]', strtolower($this->message))){
                 $day = date("d");
             }else if(preg_match('[yesterday]', strtolower($this->message))){
@@ -134,7 +144,7 @@ class Index{
                 $day = date("d", strtotime("+1 days"));   
             }
             $date = $year."/".$month."/".$day;
-            
+
             $game = new Game($date);
             $this->message_to_reply = $game->get_game_info();
             $this->isEnd = true;
@@ -151,7 +161,7 @@ class Index{
             $this->isEnd = true;
             
         }else{
-            //$this->message_to_reply = '不好意思，暫時無法回答你的問題。可以再多給我一點提示嗎？或是輸入 help 查詢。或者等等小編來回答你。';
+            $this->message_to_reply = $this->message;
         }
         
         $this->send_message($this->message_to_reply);
@@ -190,10 +200,10 @@ class Index{
                 "id":"'.$this->sender.'"
             },
             "message":{
-                "text":"'.$this->message_to_reply.'"
+                "text":"'.$message_to_reply.'"
             }
         }';
-        //echo $jsonData;
+//        echo $jsonData;
         $jsonDataEncoded = $jsonData;
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
@@ -202,8 +212,8 @@ class Index{
             $result = curl_exec($ch);
         }
         
-        if($this->input['entry'][0]['messaging'][0]['postback']['payload'] == 'cpblbot' || $this->isEnd == true){
-            $this->send_menu_button_message("繼續操作?");
+        if($this->payload == 'cpblbot' || $this->isEnd == true){
+            $this->send_menu_button_message("功能選擇");
             $this->isEnd = false;
         }
     }
@@ -241,11 +251,6 @@ class Index{
                                             "type": "postback",
                                             "title": "選手資料",
                                             "payload": "player"
-                                        },
-                                        {
-                                            "type": "postback",
-                                            "title": "與小編聊天",
-                                            "payload": "other"
                                         }
                                     ]
                                 }
@@ -385,7 +390,7 @@ class Index{
                     "id":"'.$this->sender.'"
                 },
                 "message":{
-                    "text": "請選擇隊伍名稱。",
+                    "text": "或選擇隊伍名稱。",
                     "quick_replies":['.$teamJson.']
                 }
             }';
