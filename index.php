@@ -156,7 +156,7 @@ class Index{
             $this->isEnd = true;
             $game = null;
         
-        }else if(preg_match('[cpblbot]', strtolower($this->message))){
+        }else if(preg_match('[cpblbot]', strtolower($this->message)) || preg_match('[hi]', strtolower($this->message))){
             $this->message_to_reply = '嗨，我是 Taiwan Baseball App Facebook 聊天小精靈。你可以在這邊問我關於戰績、球員、賽事相關的情報或是詢問關於 App 的問題唷。';
             $this->isEnd = true;
             

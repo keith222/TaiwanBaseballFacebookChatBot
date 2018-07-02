@@ -17,6 +17,7 @@ class Rank{
 
     public function get_team_rank_data($team){
         // get html data from cpbl
+        $this->year = date("Y");
         $cpbl_url = self::$default_url.$this->year.'.html';
 
         return $this->get_rank_from_url($cpbl_url,$team);
