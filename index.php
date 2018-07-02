@@ -102,16 +102,16 @@ class Index{
             $this->isEnd = true;
             $rank = null;
             
-        }else if(preg_match('[中信兄弟|統一7-ELEVEn獅|Lamigo桃猿|富邦悍將]', strtolower($this->message))){
+        }else if(preg_match('[中信兄弟|統一7-ELEVEn獅|Lamigo桃猿|富邦悍將]', $this->message)){
             // team rank
             $team = '';
-            if(preg_match('[中信兄弟]', strtolower($this->message))){
+            if(preg_match('[中信兄弟]', $this->message)){
                 $team = '中信兄弟';
-            }else if(preg_match('[統一7-ELEVEn獅]', strtolower($this->message))){
+            }else if(preg_match('[統一7-ELEVEn獅]', $this->message)){
                 $team = '統一7-ELEVEn';
-            }else if(preg_match('[Lamigo桃猿]', strtolower($this->message))){
+            }else if(preg_match('[Lamigo]', $this->message)){
                 $team = 'Lamigo';
-            }else if(preg_match('[富邦悍將]', strtolower($this->message))){
+            }else if(preg_match('[富邦悍將]', $this->message)){
                 $team = '富邦';
             }
             
@@ -235,7 +235,7 @@ class Index{
                             "elements":[
                                 {
                                     "title":"'.$message.'",
-                                    "image_url":"https://scontent.ftpe7-4.fna.fbcdn.net/v/t1.0-9/17352299_209141356235870_6608241796662669983_n.png?_nc_fx=ftpe7-4&_nc_cat=0&oh=854d7e3bc5ccfd75ffaf8c4b55b09e84&oe=5B29E989",
+                                    "image_url":"https://scontent.xx.fbcdn.net/v/t1.0-9/s720x720/17352299_209141356235870_6608241796662669983_n.png?_nc_cat=0&oh=f80a647c085ed7dd210dab047cf25dd7&oe=5BA2DAEB",
                                     "buttons":[
                                         {
                                             "type":"postback",
