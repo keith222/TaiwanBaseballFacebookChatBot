@@ -286,7 +286,7 @@ class Index{
                             "elements":[
                                 {
                                     "title":"'.$message.'",
-                                    "image_url":"https://scontent.ftpe7-4.fna.fbcdn.net/v/t1.0-9/17352299_209141356235870_6608241796662669983_n.png?_nc_fx=ftpe7-4&_nc_cat=0&oh=854d7e3bc5ccfd75ffaf8c4b55b09e84&oe=5B29E989",
+                                    "image_url":"https://scontent.xx.fbcdn.net/v/t1.0-9/s720x720/17352299_209141356235870_6608241796662669983_n.png?_nc_cat=0&oh=f80a647c085ed7dd210dab047cf25dd7&oe=5BA2DAEB",
                                     "buttons":[
                                         {
                                             "type":"postback",
@@ -337,7 +337,7 @@ class Index{
                             "elements":[
                                 {
                                     "title":"'.$message.'",
-                                    "image_url":"https://scontent.ftpe7-4.fna.fbcdn.net/v/t1.0-9/17352299_209141356235870_6608241796662669983_n.png?_nc_fx=ftpe7-4&_nc_cat=0&oh=854d7e3bc5ccfd75ffaf8c4b55b09e84&oe=5B29E989",
+                                    "image_url":"https://scontent.xx.fbcdn.net/v/t1.0-9/s720x720/17352299_209141356235870_6608241796662669983_n.png?_nc_cat=0&oh=f80a647c085ed7dd210dab047cf25dd7&oe=5BA2DAEB",
                                     "buttons":[
                                         {
                                             "type":"postback",
