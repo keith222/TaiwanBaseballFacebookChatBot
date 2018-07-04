@@ -161,7 +161,8 @@ class Index{
             $this->isEnd = true;
             
         }else if(preg_match('[help]', strtolower($this->message))){
-            $this->message_to_reply = '您好，請稍等小編來為您服務。';
+            $this->message_to_reply = '您好，請稍等小編來為您服務。或是選擇其他服務。';
+            $this->isEnd = false;
             
         }else if (preg_match('[talk-]', strtolower($this->message))) {
             return;    
