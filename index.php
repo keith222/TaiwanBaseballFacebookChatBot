@@ -160,9 +160,13 @@ class Index{
             $this->message_to_reply = '嗨，我是 Taiwan Baseball App Facebook 聊天小精靈。你可以在這邊問我關於戰績、球員、賽事相關的情報或是詢問關於 App 的問題唷。';
             $this->isEnd = true;
             
-        }else{
-            return;
-            //$this->message_to_reply = $this->message;
+        }else if(preg_match('[help]', strtolower($this->message))){
+            $this->message_to_reply = '您好，請稍等小編來為您服務。';
+        else if (preg_match('[talk-]', strtolower($this->message))) {
+            return;    
+        
+        }else{        
+            $this->message_to_reply = '您選擇或輸入的指令有誤，請稍後再試試唷。或是輸入:「talk-內容」來留言給小編。';
         }
         
         $this->send_message($this->message_to_reply);
