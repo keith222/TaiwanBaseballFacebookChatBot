@@ -161,7 +161,8 @@ class Index{
             $this->isEnd = true;
             
         }else{
-            $this->message_to_reply = $this->message;
+            return;
+            //$this->message_to_reply = $this->message;
         }
         
         $this->send_message($this->message_to_reply);
